@@ -154,5 +154,5 @@ class JSON {
 	/// Will return empty range for non-array objects.
 	JSONWrapper ArrayRange();
 
-}; // End json::JSON documentation
+}; // End JSON documentation
 ```
