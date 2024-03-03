@@ -16,7 +16,7 @@ json_cpp should work on any platform; it's only requirement is a C++17 compatibl
 move semantics, and variadic templates. The tests are tailored for linux, but could be ported to any platform with relatively new compiler.
 
 ### API
-You can find the API [over here](API.md). For now it's just a Markdown file with C++ syntax highlighting, but it's better than nothing!
+You can find the API [over here](../../wiki/API). For now it's just a Markdown file with C++ syntax highlighting, but it's better than nothing!
 
 ### License
 MIT License
@@ -34,7 +34,7 @@ You can also use different ways, but that needs more manual labour work, though
 it's not much.
 
 ### Examples
-Example code is provided in 'examples' directory. Check out [API](API.md) for more.
+Example code is provided in 'examples' directory. Check out [API](../../wiki/API) for more.
 I have separated examples to multiple files and you can build a test to see output.
 
 ```cpp
