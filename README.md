@@ -1,20 +1,21 @@
-# SimpleJSON
-Simple C++ JSON library
 [![C++ CI build](https://github.com/oskarirauta/json_cpp/actions/workflows/build.yml/badge.svg)](https://github.com/oskarirauta/json_cpp/actions/workflows/build.yml)
 
-## License
-Do what the fuck you want public license
+## SimpleJSON
+Simple C++ JSON library
 
-## About
+### License
+MIT License
+
+### About
 SimpleJSON is a lightweight JSON library for exporting data in JSON format from C++. By taking advantage of templates and operator overloading on the backend, you're able to create and work with JSON objects right away, just as you would expect from a language such as JavaScript. SimpleJSON is a single C++ Header file, "json.hpp". Feel free to download this file on its own, and include it in your project. No other requirements!
 
 #### Platforms
 SimpleJSON should work on any platform; it's only requirement is a C++11 compatible compiler, as it make heavy use of the C++11 move semantics, and variadic templates. The tests are tailored for linux, but could be ported to any platform with python support and a C++11 compiler.
 
-## API
+### API
 You can find the API [over here](API.md). For now it's just a Markdown file with C++ syntax highlighting, but it's better than nothing!
 
-## Upcoming Features
+### Upcoming Features
 SimpleJSON is still missing some features, which I hope to get done soon!
 * Write more test cases to cover all major components( mostly parsing )
 
@@ -22,7 +23,7 @@ One of the biggests goals for SimpleJSON is for it to be lightweight, and small.
 
 If you run into any bugs, or see that I'm missing a featuer, please submit an issue through GitHub and I'll respond as soon as I can!
 
-## Example
+### Example
 More examples can be found in the 'examples' directory. Check out [the API](API.md) for a full list of functions.
 
 ```cpp
