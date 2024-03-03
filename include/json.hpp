@@ -648,20 +648,34 @@ class JSON final {
 	 *String, an conversion will be tried. Throws std::error_code on conversion error.
 	 */
 	double to_float() const {
-		std::error_code ec;
-		if ( double ret = to_float(ec); !ec )
-			return ret;
-		else throw std::runtime_error(ec.message());;
-	}
-
-	operator double() const {
-
 		if ( is_null())
 			return 0;
 		std::error_code ec;
 		if ( double ret = to_float(ec); !ec )
 			return ret;
-		else throw std::runtime_error(ec.message());;
+		else throw std::runtime_error(ec.message());
+	}
+
+	double to_double(std::error_code &ec) const noexcept {
+		return to_float(ec);
+	}
+
+	double to_double() const {
+		is ( is_null())
+			return 0;
+		std::error_code ec;
+		if ( double ret = to_float(ec); !ec )
+			return ret;
+		else throw std::runtime_error(ec.message());
+	}
+
+	operator double() const {
+		if ( is_null())
+			return 0;
+		std::error_code ec;
+		if ( double ret = to_float(ec); !ec )
+			return ret;
+		else throw std::runtime_error(ec.message());
 	}
 
 	/**
