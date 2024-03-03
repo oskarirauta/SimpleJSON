@@ -29,7 +29,7 @@ json_cpp can be used by importing it as a submodule to "json" directory, unless 
 directory name with variable JSON_DIR, check Makefile for example.
 Then you just include json/Makefile.inc and link with $(JSON_OBJS) while your code
 is including "json.hpp". Utilized variables are CXXFLAGS and INCLUDES, again check
-[Makefile](blob/main/Makefile) for example on library usage when imported.
+[Makefile](Makefile) for example on library usage when imported.
 You can also use different ways, but that needs more manual labour work, though
 it's not much.
 
