@@ -661,7 +661,7 @@ class JSON final {
 	}
 
 	double to_double() const {
-		is ( is_null())
+		if ( is_null())
 			return 0;
 		std::error_code ec;
 		if ( double ret = to_float(ec); !ec )
