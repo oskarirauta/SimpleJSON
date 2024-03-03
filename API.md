@@ -1,154 +1,158 @@
-# SimpleJSON API
+# json_cpp API
 
 ## Overview
 
 ```cpp
-namespace json {
 
-    /// Create a new JSON Array.
-    JSON Array( [any_type [, ... ] ] );
+	/// JSON Class. This is the core class.
+	class JSON {
 
-    /// Create a new JSON Object.
-    JSON Object();
+		enum Class {
+			Null,
+			Object,
+			Array,
+			String,
+			Boolean,
+			Floating,
+			Integral
+		};
 
-    /// JSON Class. This is the core class.
-    class JSON {
+		/**
+		 Typed Constructors
 
-        enum Class {
-            Null,
-            Object,
-            Array,
-            String,
-            Boolean,
-            Floating,
-            Integral
-        };
+		  - string_type:  [const] char *, [const] char[], std::string, etc
+		  - bool_type:    bool
+		  - numeric_type: char, int, long, double, float, etc
+		  - null_type:    nullptr_t
+		 */
 
-        /**
-            Typed Constructors
+		JSON( string_type );
+		JSON( bool_type );
+		JSON( numeric_type );
+		JSON( null_type );
 
-            string_type:  [const] char *, [const] char[], std::string, etc
-            bool_type:    bool
-            numeric_type: char, int, long, double, float, etc
-            null_type:    nullptr_t
+		/** 
+		 Copy/Move Constructors
+		 */
+		JSON( const JSON & );
+		JSON( JSON && );
 
-         */
-        JSON( string_type );
-        JSON( bool_type );
-        JSON( numeric_type );
-        JSON( null_type );
-        
-        /** 
-            Copy/Move Constructors
-         */
-        JSON( const JSON & );
-        JSON( JSON && );
+		/**
+		Static Methods
+		*/
 
-        /**
-            Static Methods
-         */
+		/// Create a new JSON Array
+		JSON Array( [any_type [, ... ] ] );
 
-        /// Create a JSON object from a string.
-        JSON Load( string_type );
+		/// Create a new JSON Object.
+		JSON Object();
 
-        /// Create a JSON object with the specified json::Class type.
-        JSON Make( JSON::Class );
+		/// Create a JSON object from a string.
+		JSON Load( string_type );
 
-        /**
-            Operator Overloading
+		/// Create a JSON object with the specified json::Class type.
+		JSON Make( JSON::Class );
 
-            Assigning to a JSON object changes the type on the fly.
-            If you have a JSON object that represents an integer, 
-            and then you assign a boolean value to it, that object
-            now represents a boolean.
-         */
+		/**
+		 Operator Overloading
 
-        /// Assign a boolean type to a JSON object
-        JSON& operator=( bool_type );
+		 Assigning to a JSON object changes the type on the fly.
+		 If you have a JSON object that represents an integer, 
+		 and then you assign a boolean value to it, that object
+		 now represents a boolean.
+		 */
 
-        /// Assign a numeric type to a JSON object
-        JSON& operator=( numeric_type );
+		/// Assign a boolean type to a JSON object
+		JSON& operator=( bool_type );
 
-        /// Assign a string type to a JSON object
-        JSON& operator=( string_type );
+		/// Assign a numeric type to a JSON object
+		JSON& operator=( numeric_type );
 
-        /// Assign a null type to a JSON object
-        // JSON& operator=( null_type ); // TODO: Not Impld
+		/// Assign a string type to a JSON object
+		JSON& operator=( string_type );
 
-        /// Standard copy/move assignment operators
-        JSON& operator=( const JSON & );
-        JSON& operator=( JSON && );
+		/// Assign a null type to a JSON object
+		// JSON& operator=( null_type ); // TODO: Not Impld
 
-        /// Access the elements of a JSON Object.
-        /// Accessing an invalid key will create a new entry with a Null type.
-        JSON& operator[]( string_type key );
+		/// Standard copy/move assignment operators
+		JSON& operator=( const JSON & );
+		JSON& operator=( JSON && );
 
-        /// Access the elements of a JSON Array. 
-        /// Accessing an out of bounds index will extend the Array.
-        JSON& operator[]( unsigned index );
+		/// Access the elements of a JSON Object.
+		/// Accessing an invalid key will create a new entry with a Null type.
+		JSON& operator[]( string_type key );
 
-        /// Same as operator[]
-        JSON& at( string_type | unsigned )
+		/// Access the elements of a JSON Array. 
+		/// Accessing an out of bounds index will extend the Array.
+		JSON& operator[]( unsigned index );
 
-        /// const version of 'at'
-        const JSON& at( string_type | unsigned ) const;
+		/// Same as operator[]
+		JSON& at( string_type | unsigned )
 
-        /// Stream operator; calls dump()
-        std::ostream& operator<<( std::ostream &, const JSON & );
+		/// const version of 'at'
+		const JSON& at( string_type | unsigned ) const;
 
-        /**
-            Utility Methods
-         */
+		/// Stream operator; calls dump()
+		std::ostream& operator<<( std::ostream &, const JSON & );
 
-        /// Get the length of an array, or -1
-        int length() const;
+		/**
+		 Utility Methods
+		 */
 
-        /// Get the size of an Array or Object
-        int size() const; 
+		/// Get the length of an array, or -1
+		int length() const;
 
-        /// Determine if an Object has a key
-        bool hasKey( string_type ) const;
+		/// Get the size of an Array or Object
+		int size() const; 
 
-        /// Useful for appending to an Array, can take any number of
-        /// primitive types using variadic templates
-        void append( any_type [, ... ] );
+		/// Determine if an Object has a key
+		bool hasKey( string_type ) const;
+		bool contains( string_type ) const;
 
-        /// Dumps the JSON object to a string format for storing.
-        void dump( int depth = 0, string indent = "  " );
+		/// Useful for appending to an Array, can take any number of
+		/// primitive types using variadic templates
+		void append( any_type [, ... ] );
 
-        /// Get the JSON::Class type for a JSON object.
-        JSON::Class JSONType();
+		/// Dumps the JSON object to a string format for storing.
+		void dump( int depth = 0, string indent = "  " );
 
-        /// Convience method to determine if an object is Class::Null
-        bool IsNull();
+		/// Get the JSON::Class type for a JSON object.
+		JSON::Class JSONType();
 
-        /// Convert to a string literal iff Type == Class::String
-        string ToString();
-        string ToString( bool &OK );
+		/// Convience method to determine if an object is Class::Null
+		bool is_null();
 
-        /// Convert to a floating literal iff Type == Class::Floating
-        double ToFloat();
-        double ToFloat( bool &OK );
+		/// Convert to a string literal iff Type == Class::String
+		string to_string();
+		string to_string( bool &OK );
+		operator std::string();
 
-        /// Convert to an integral literal iff Type == Class::Integral
-        long ToInt();
-        long ToInt( bool &OK );
+		/// Convert to a floating literal iff Type == Class::Floating
+		double to_double();
+		double to_double( book &OK );
+		double to_float();
+		double to_float( bool &OK );
+		operator double();
 
-        /// Convert to a boolean literal iff Type == Class::Boolean
-        bool ToBool();
-        bool ToBool( bool &OK );
+		/// Convert to an integral literal iff Type == Class::Integral
+		long long to_int();
+		long long to_int( bool &OK );
 
-        /**
-            Iterating
-        */
+		/// Convert to a boolean literal iff Type == Class::Boolean
+		bool to_bool();
+		bool to_bool( bool &OK );
 
-        /// Wraps the internal object representation to access iterators.
-        /// Will return empty range for non-object objects.
-        JSONWrapper ObjectRange();
+		/**
+		 Iterating
+		 */
 
-        /// Wraps the internal array representation to access iterators.
-        /// Will return empty range for non-array objects.
-        JSONWrapper ArrayRange();
-    }; // End json::JSON documentation
-} // End json documentation
+		/// Wraps the internal object representation to access iterators.
+		/// Will return empty range for non-object objects.
+		JSONWrapper ObjectRange();
 
+		/// Wraps the internal array representation to access iterators.
+		/// Will return empty range for non-array objects.
+		JSONWrapper ArrayRange();
+
+	}; // End json::JSON documentation
+```
