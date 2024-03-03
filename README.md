@@ -1,5 +1,6 @@
 # SimpleJSON
 Simple C++ JSON library
+[![C++ CI build](https://github.com/oskarirauta/json_cpp/actions/workflows/build.yml/badge.svg)](https://github.com/oskarirauta/json_cpp/actions/workflows/build.yml)
 
 ## License
 Do what the fuck you want public license
