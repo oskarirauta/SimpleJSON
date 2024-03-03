@@ -3,38 +3,50 @@
 ## SimpleJSON
 Simple C++ JSON library
 
-### License
-MIT License
-
 ### About
-SimpleJSON is a lightweight JSON library for exporting data in JSON format from C++. By taking advantage of templates and operator overloading on the backend, you're able to create and work with JSON objects right away, just as you would expect from a language such as JavaScript. SimpleJSON is a single C++ Header file, "json.hpp". Feel free to download this file on its own, and include it in your project. No other requirements!
+SimpleJSON is a lightweight JSON library for exporting data in JSON format from C++.
+By taking advantage of templates and operator overloading on the backend, you're able to create and work with JSON objects right away, just as you would
+expect from a language such as JavaScript. 
+SimpleJSON does not have any other requirements, such as submodules. Original version was completely in single header
+file, but some of code, un-related to templates, has been moved to json.cpp file to make header file smaller. This does
+not give any advantage in result, result is the same; but in my opinion, it makes reading the header file easier when it is shortened.
 
 #### Platforms
-SimpleJSON should work on any platform; it's only requirement is a C++11 compatible compiler, as it make heavy use of the C++11 move semantics, and variadic templates. The tests are tailored for linux, but could be ported to any platform with python support and a C++11 compiler.
+SimpleJSON should work on any platform; it's only requirement is a C++17 compatible compiler, as it make heavy use of the C++11 and C++17
+move semantics, and variadic templates. The tests are tailored for linux, but could be ported to any platform with relatively new compiler.
 
 ### API
 You can find the API [over here](API.md). For now it's just a Markdown file with C++ syntax highlighting, but it's better than nothing!
 
-### Upcoming Features
-SimpleJSON is still missing some features, which I hope to get done soon!
-* Write more test cases to cover all major components( mostly parsing )
+### License
+MIT License
 
-One of the biggests goals for SimpleJSON is for it to be lightweight, and small. Having complicated logic isn't bad, but it bloats the codebase in most cases. I'd like to keep things small rather than put in big features that take a ton of space.
+#### Original License
+Do what the fuck you want public license 
 
-If you run into any bugs, or see that I'm missing a featuer, please submit an issue through GitHub and I'll respond as soon as I can!
+### Usage in project
+json_cpp can be used by importing it as a submodule to "json" directory, unless you change
+directory name with variable JSON_DIR, check Makefile for example.
+Then you just include json/Makefile.inc and link with $(JSON_OBJS) while your code
+is including "json.hpp". Utilized variables are CXXFLAGS and INCLUDES, again check
+[Makefile](blob/main/Makefile) for example on library usage when imported.
+You can also use different ways, but that needs more manual labour work, though
+it's not much.
 
-### Example
-More examples can be found in the 'examples' directory. Check out [the API](API.md) for a full list of functions.
+### Examples
+Example code is provided in 'examples' directory. Check out [API](API.md) for more.
+I have separated examples to multiple files and you can build a test to see output.
 
 ```cpp
+#include <iostream>
 #include "json.hpp"
 
 int main() {
-  json::JSON obj;
+  JSON obj;
   // Create a new Array as a field of an Object.
-  obj["array"] = json::Array( true, "Two", 3, 4.0 );
+  obj["array"] = JSON::Array( true, "Two", 3, 4.0 );
   // Create a new Object as a field of another Object.
-  obj["obj"] = json::Object();
+  obj["obj"] = JSON::Object();
   // Assign to one of the inner object's fields
   obj["obj"]["inner"] = "Inside";
   
@@ -48,6 +60,7 @@ int main() {
   std::cout << obj << std::endl;
 }
 ```
+
 Output:
 ``` 
 {
@@ -71,10 +84,8 @@ Output:
 
 This example can also be written another way:
 ```cpp
-#include "json.hpp"
 #include <iostream>
-
-using json::JSON;
+#include "json.hpp"
 
 int main() {
     JSON obj = {
@@ -94,4 +105,7 @@ int main() {
 
     std::cout << obj << std::endl;
 ```
-Sadly, we don't have access to the : character in C++, so we can't use that to seperate key-value pairs, but by using commas, we can achieve a very similar effect. The other point you might notice, is that we have to explictly create arrays. This is a limitation of C++'s operator overloading rules, so we can't use the [] operator to define the array :( I'm looking into ways to make this smoother.
+
+Sadly, we don't have access to the : character in C++, so we can't use that to seperate key-value pairs, but by using commas,
+we can achieve a very similar effect. The other point you might notice, is that we have to explictly create arrays.
+This is a limitation of C++'s operator overloading rules, so we can't use the [] operator to define the array.
