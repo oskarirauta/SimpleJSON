@@ -1,7 +1,13 @@
 # SimpleJSON
 Simple C++ JSON library
 
+## Fork
+Fork of original + changes + fixes from https://github.com/nwrkbiz/Cpp-SupportLibrary/blob/master/JSON.h
+
 ## License
+THE BEER-WARE LICENSE
+
+## Original License
 Do what the fuck you want public license
 
 ## About
